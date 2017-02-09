@@ -2,13 +2,12 @@
 
 import os
 import hashlib
-import simplejson
 from optparse import OptionParser
 from datetime import datetime, date, time
 import re
 import shutil
 import errno
-import simplejson
+import json
 import subprocess
 
 def message(msg):
@@ -57,7 +56,7 @@ def get_exif_date(exiftags, key):
 
 def parse_exif(filename):
     output = subprocess.Popen(["exiftool", "-json" , filename], stdout=subprocess.PIPE).communicate()[0]
-    return simplejson.loads(unicode(output, 'latin1', 'ignore'))[0]
+    return json.loads(unicode(output, 'latin1', 'ignore'))[0]
 
 def get_new_filename(filename, destdir):
     exiftags = parse_exif(filename)
